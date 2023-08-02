@@ -13,7 +13,15 @@ function PlaceDetails({ route, navigation }) {
   const selectedPlaceId = route.params.placeId;
 
   useEffect(() => {
+    async function loadPlaceData() {
+      const place = await fetchPlaceDetails(selectedPlaceId);
+      setFetchedPlace(place);
+      navigation.setOptions({
+        title: place.title,
+      });
+    }
 
+    loadPlaceData();
   }, [selectedPlaceId]);
 
   if (!fetchedPlace) {
